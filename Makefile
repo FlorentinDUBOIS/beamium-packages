@@ -42,7 +42,7 @@ rpm:
 		  --description "Prometheus to Warp10 metrics forwarder" \
 			--url "https://github.com/ovh/beamium" \
 			--license "BSD-3-Clause" \
-			--version $(shell echo $$(./build/beamium --version | awk '{print $$2}')-$$(subversion)) \
+			--version $(shell echo $$(./build/beamium --version | head -n 1 | awk '{print $$3}')-$$subversion) \
 			-n beamium \
 			-d logrotate \
 			-s dir -t rpm \
@@ -58,7 +58,6 @@ rpm:
 			--before-remove rpm/before-remove.sh \
 			--after-remove rpm/after-remove.sh \
 			--inputs rpm/input
-
 .PHONY: clean
 clean:
 		rm -rf build
